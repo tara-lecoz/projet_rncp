@@ -331,7 +331,7 @@ def lister_commandes(
 ):
     """Liste des commandes pour le tableau de bord exploitant.
 
-    "recherche" filtre sur le N° de commande ou le nom de la déchetterie
+    "recherche" filtre sur le N° de commande, le nom de la déchetterie ou l'email de l'expéditeur
     (recherche partielle, insensible à la casse).
     """
     query = db.query(Commande)
@@ -345,6 +345,7 @@ def lister_commandes(
             or_(
                 Commande.numero_commande.ilike(motif),
                 Commande.dechetterie_nom.ilike(motif),
+                Commande.email_expediteur.ilike(motif),
             )
         )
     return query.order_by(Commande.date_demande.desc()).all()

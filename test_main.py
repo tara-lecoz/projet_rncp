@@ -175,6 +175,13 @@ def test_lister_commandes_recherche_par_numero_ou_dechetterie():
     assert len(reponse_numero.json()) == 1
 
 
+def test_lister_commandes_recherche_par_email():
+    client.post("/api/webhook/gform", json=payload_creation(), headers=HEADERS_VALIDES)
+
+    reponse = client.get("/api/commandes", params={"recherche": "gardien@ampmetropole.fr"})
+    assert len(reponse.json()) == 1
+
+
 # ---------------------------------------------------------------------------
 # Modification du statut par l'exploitant
 # ---------------------------------------------------------------------------
